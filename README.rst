@@ -21,7 +21,7 @@ How it works
 
 1. ``cache_block`` is very similar with Django ``{% cache %}``  templatetag, it would pull data from block automatically and use the value to generate fragment cache key.
 
-2. If value in any block field has changed, new fragment key would be generated and new HTML fragment code would be saved to Cache.
+2. If value in any block field (even ``descendants of the block``) has changed, new fragment key would be generated and new HTML fragment code would be saved to Cache.
 
 3. ``cache_block`` would check if the page is ``preview`` mode, if the page if in preview mode, the ``HTML fragment cache`` would not be pulled from cache.
 
