@@ -1,0 +1,9 @@
+{% load wagtailcore_tags cache_block_tags %}
+
+{% cache_block 300 page block %}
+  <section class="{{ block.block_type }}">
+    {{ block.value.heading }}
+    {{ block.value.paragraph }}
+  </section>
+{% endcache_block %}
+

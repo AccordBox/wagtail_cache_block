@@ -1,0 +1,23 @@
+{% load wagtailcore_tags cache_block_tags %}
+
+{% for block in page.body %}
+
+  {% if block.block_type == 'column_struct_data' %}
+
+    {% include_block block %}
+
+  {% elif block.block_type == 'column_stream_data' %}
+
+    {% include_block block %}
+
+  {% else %}
+
+    {% cache_block 300 page block %}
+      <section class="{{ block.block_type }}">
+        {% include_block block %}
+      </section>
+    {% endcache_block %}
+
+  {% endif %}
+
+{% endfor %}
