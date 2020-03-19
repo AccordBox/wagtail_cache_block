@@ -52,7 +52,7 @@ setup(
     long_description=readme + '\n\n' + history,
     author='michaelyin',
     author_email='michaelyin@accordbox.com',
-    url='https://github.com/michael-yin/wagtail_cache_block',
+    url='https://github.com/Accordbox/wagtail_cache_block',
     packages=[
         'wagtail_cache_block',
     ],
