@@ -5,27 +5,27 @@
 wagtail_cache_block
 =============================
 
-This project add ``HTML fragment cache`` to your StreamField block in easy way
+This project adds ``HTML fragment cache`` to your StreamField block in an easy way
 
 Background
 -------------
 
-In Wagtail community, it is popular to use the ``HTML fragment cache`` at page level.
+In the Wagtail community, it is popular to use the ``HTML fragment cache`` at page level.
 
-This works fine in most of the time. But what if some different page have the same block data and some DB query need be run multiple times when rendering?
+This works fine most of the time. But what if different pages have the same block data and a DB query needs be run multiple times when rendering?
 
-In this case, it make sense to make ``HTML fragment cache`` work on block level instead of page level.
+In this case, it makes sense to make ``HTML fragment cache`` work on block level instead of page level.
 
 How it works
 -------------
 
-1. ``cache_block`` is very similar with Django ``{% cache %}``  templatetag, it would pull data from block automatically and use the value to generate fragment cache key.
+1. ``cache_block`` is very similar to the Django ``{% cache %}``  templatetag. It pulls data from the block automatically and uses the value to generate a fragment cache key.
 
-2. If value in any block field (even ``descendants of the block``) has changed, new fragment key would be generated and new HTML fragment code would be saved to Cache.
+2. If the value in any block field (even ``descendants of the block``) has changed, a new fragment key will be generated and a new HTML fragment code will be stored in the cache.
 
-3. ``cache_block`` would check if the page is ``preview`` mode, if the page if in preview mode, the ``HTML fragment cache`` would not be pulled from cache.
+3. ``cache_block`` checks if the page is ``preview`` mode; if the page is in preview mode, the ``HTML fragment cache`` will not be pulled from cache.
 
-I have used it in my projects and the performance has been improved, especially for some page which contains many db query.
+I have used it in my projects and the performance has improved, especially for pages which contain many db queries.
 
 Quickstart
 ----------
@@ -44,9 +44,9 @@ Add it to your ``INSTALLED_APPS``:
         ...
     )
 
-You can use it in StreamField ``for loop`` iteration
+You can use it in the StreamField ``for loop`` iteration
 
-Here ``300`` is the cache timeout, ``page`` is Wagtail page instance, and ``block`` is the StreamField block.
+Here ``300`` is the cache timeout, ``page`` is the Wagtail page instance, and ``block`` is the StreamField block.
 
 .. code-block:: HTML
 
@@ -58,7 +58,7 @@ Here ``300`` is the cache timeout, ``page`` is Wagtail page instance, and ``bloc
       {% endcache_block %}
     {% endfor %}
 
-Or you can use it in block template (For example: ``StructBlock``)
+Or you can use it in your block template (For example: ``StructBlock``)
 
 .. code-block:: HTML
 
