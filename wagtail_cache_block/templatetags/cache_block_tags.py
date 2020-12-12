@@ -61,7 +61,7 @@ class CacheBlockNode(Node):
 
             page_obj, block_obj = self.page.resolve(context), self.block.resolve(context)
 
-            if getattr(page_obj, 'is_preview', False):
+            if getattr(context.request, 'is_preview', False):
                 # preview mode, do not pull from cache
                 return self.nodelist.render(context)
             else:
