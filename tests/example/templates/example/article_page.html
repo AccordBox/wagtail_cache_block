@@ -12,9 +12,9 @@
 
   {% else %}
 
-    {% cache_block 300 page block %}
+    {% cache_block 300 request block %}
       <section class="{{ block.block_type }}">
-        {% include_block block %}
+        {% include_block block with request=request %}
       </section>
     {% endcache_block %}
 

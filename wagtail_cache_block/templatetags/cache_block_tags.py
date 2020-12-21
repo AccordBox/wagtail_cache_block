@@ -36,10 +36,10 @@ def extract_block(block_obj):
 
 
 class CacheBlockNode(Node):
-    def __init__(self, nodelist, expire_time_var, page, block):
+    def __init__(self, nodelist, expire_time_var, request, block):
         self.nodelist = nodelist
         self.expire_time_var = expire_time_var
-        self.page = page
+        self.request = request
         self.block = block
 
     def render(self, context):
@@ -59,24 +59,24 @@ class CacheBlockNode(Node):
         except InvalidCacheBackendError:
             fragment_cache = caches['default']
 
-            page_obj, block_obj = self.page.resolve(context), self.block.resolve(context)
+        request, block_obj = self.request.resolve(context), self.block.resolve(context)
 
-            if getattr(context.request, 'is_preview', False):
-                # preview mode, do not pull from cache
-                return self.nodelist.render(context)
-            else:
-                vary_on = extract_block(block_obj)
+        if getattr(request, 'is_preview', False):
+            # preview mode, do not pull from cache
+            return self.nodelist.render(context)
+        else:
+            vary_on = extract_block(block_obj)
 
-                fragment_name = '%s.%s' % (
-                    block_obj.block.__class__.__module__,
-                    block_obj.block.__class__.__name__,
-                )
-                cache_key = make_template_fragment_key(fragment_name, vary_on)
-                value = fragment_cache.get(cache_key)
-                if value is None:
-                    value = self.nodelist.render(context)
-                    fragment_cache.set(cache_key, value, expire_time)
-                return value
+            fragment_name = '%s.%s' % (
+                block_obj.block.__class__.__module__,
+                block_obj.block.__class__.__name__,
+            )
+            cache_key = make_template_fragment_key(fragment_name, vary_on)
+            value = fragment_cache.get(cache_key)
+            if value is None:
+                value = self.nodelist.render(context)
+                fragment_cache.set(cache_key, value, expire_time)
+            return value
 
 
 @register.tag('cache_block')
