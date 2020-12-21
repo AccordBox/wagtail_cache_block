@@ -46,17 +46,17 @@ Add it to your ``INSTALLED_APPS``:
 
 You can use it in StreamField ``for loop`` iteration
 
-Here ``300`` is the cache timeout, ``page`` is Wagtail page instance, and ``block`` is the StreamField block.
+Here ``300`` is the cache timeout, ``request`` is Django ``RequestContext``, and ``block`` is the StreamField block.
 
 .. code-block:: HTML
 
     {% load wagtailcore_tags cache_block_tags %}
 
-    {% for block in page.body %}
-      {% cache_block 300 page block %}
-        {% include_block block %}
-      {% endcache_block %}
-    {% endfor %}
+    {% cache_block 300 request block %}
+      <section class="{{ block.block_type }}">
+        {% include_block block with request=request %}
+      </section>
+    {% endcache_block %}
 
 Or you can use it in block template (For example: ``StructBlock``)
 
@@ -64,7 +64,7 @@ Or you can use it in block template (For example: ``StructBlock``)
 
     {% load wagtailcore_tags cache_block_tags %}
 
-    {% cache_block 300 page block %}
+    {% cache_block 300 request block %}
       <section class="{{ block.block_type }}">
 
         {{ block.value.heading }}

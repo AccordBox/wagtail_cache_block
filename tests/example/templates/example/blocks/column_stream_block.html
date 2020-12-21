@@ -1,6 +1,6 @@
 {% load wagtailcore_tags cache_block_tags %}
 
-{% cache_block 300 page block %}
+{% cache_block 300 request block %}
   <section class="{{ block.block_type }}">
     {% for child in block.value %}
 
