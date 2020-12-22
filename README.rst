@@ -48,13 +48,15 @@ You can use it in StreamField ``for loop`` iteration
 
 Here ``300`` is the cache timeout, ``request`` is Django ``RequestContext``, and ``block`` is the StreamField block.
 
+Please remember to use ``{% include_block block with request=request block=block only %}`` to make sure ``request`` is available in the context.
+
 .. code-block:: HTML
 
     {% load wagtailcore_tags cache_block_tags %}
 
     {% for block in page.body %}
         {% cache_block 300 request block %}
-            {% include_block block with request=request %}
+            {% include_block block with request=request block=block only %}
         {% endcache_block %}
     {% endfor %}
 
